@@ -1,5 +1,6 @@
 APP_NAME = 'paperTest'
-COMP_NAME = ''
+NAMESPACE = 'lab'
+COMP_NAME = 'test'
 IMAGE_TAG = ''
 IMAGE_URI = ''
 IMAGE_LATEST = ''
@@ -33,7 +34,7 @@ pipeline {
         stage('Git Checkout') {
             steps {
                 dir('source'){
-                    git branch: "${BRANCH}", credentialsId: '1afda173-d7ab-4ffb-89cc-36106a82febe', url: "${GIT_REGISTRY}"
+                    git branch: "master", credentialsId: '1afda173-d7ab-4ffb-89cc-36106a82febe', url: "${GIT_REGISTRY}"
 
                     script {
                         COMMIT_HASH = sh(returnStdout: true, script: 'git rev-parse HEAD').trim().take(7)
@@ -82,8 +83,8 @@ pipeline {
                 }
                 steps{
                 script{
-                        sh "kubectl set image -n ${APP_NAME} --record deployment ${APP_NAME}-${COMP_NAME} ${APP_NAME}-${COMP_NAME}=${IMAGE_URI}"
-                        sh "kubectl rollout status deploy ${APP_NAME}-${COMP_NAME} -n ${APP_NAME}"
+                        sh "kubectl set image -n ${NAMESPACE} --record deployment ${APP_NAME}-${COMP_NAME} ${APP_NAME}-${COMP_NAME}=${IMAGE_URI}"
+                        sh "kubectl rollout status deploy ${APP_NAME}-${COMP_NAME} -n ${NAMESPACE}"
 
                 }
             }

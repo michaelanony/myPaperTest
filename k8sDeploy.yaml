@@ -6,7 +6,7 @@ metadata:
     app: paper
   name: paper-test
 spec:
-  replicas: 0
+  replicas: 1
   selector:
     matchLabels:
       app: paper
@@ -16,8 +16,12 @@ spec:
         app: paper
     spec:
       containers:
-      - image: 192.168.11.3:10000/ci/paperTest:latest.
-        name: get-pneumonia-spider
+      - image: 192.168.11.3:10000/ci/paper:latest.
+        name: paper-test
+        ports:
+        - containerPort: 5000
+          name: flask
+          protocol: TCP
         imagePullPolicy: IfNotPresent
 ---
 apiVersion: v1
