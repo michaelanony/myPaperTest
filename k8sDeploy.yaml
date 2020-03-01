@@ -22,7 +22,9 @@ spec:
         - containerPort: 5000
           name: flask
           protocol: TCP
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: Always
+      imagePullSecrets:
+      - name: registry-secret
 ---
 apiVersion: v1
 kind: Service
