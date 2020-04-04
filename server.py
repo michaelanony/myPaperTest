@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def hello():
-    return "This is second version code!"
+    return "This is first version code!"
 
 
 if __name__ == '__main__':
